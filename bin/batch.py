@@ -20,11 +20,11 @@ goodfiles, badfiles = [], []
 for imgfile in imgfiles:
     img = pyexiv2.Image(imgfile.as_posix())
     alldata = img.read_exif()
-    tstamp = datetime.strptime(alldata["Exif.Image.DateTime"], DTFMT)
 
     data = {k: v for k, v in alldata.items() if "GPS" in k}
-    data.update(filepath=imgfile)
-    data.update(tstamp=tstamp)
+
+    tstamp = datetime.strptime(alldata["Exif.Image.DateTime"], DTFMT)
+    data.update(filepath=imgfile, tstamp=tstamp)
 
     if "Exif.GPSInfo.GPSLongitude" in data:
         print(f"Found GPS data in {imgfile}")
