@@ -1,2 +1,9 @@
-exif==1.6.0
+# Original Python environment (2023-10-08):
+# Python 3.11.4 (main, Jun  9 2023, 07:59:55) [GCC 12.3.0] on linux
+
+# Primary
+exif=1.6.0
+pyside6=6.5.3
+
+# Secondary
 ipython==8.16.1
