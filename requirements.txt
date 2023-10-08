@@ -2,7 +2,7 @@
 # Python 3.11.4 (main, Jun  9 2023, 07:59:55) [GCC 12.3.0] on linux
 
 # Primary
-exif=1.6.0
+pyexiv2=2.8.2
 pyside6=6.5.3
 
 # Secondary
