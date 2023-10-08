@@ -24,6 +24,7 @@ class MainWidget(QMainWindow):
 
 
 if __name__ == "__main__":
+    # try with /home/mark/Pictures/2023/20230930/2023_09_30T08_01_40_556.jpg
     app = QApplication(sys.argv)
     ui = MainWidget()
     ui.show()
