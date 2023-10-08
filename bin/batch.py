@@ -12,13 +12,12 @@ BASEDIR = "/home/mark/Pictures/2023/20230917.test"
 
 # Pictures with a time delta greater than the following
 # will not be modified
-MAXDELTASECS = 600
+MAXDELTASECS = 400
 
 imgfiles = sorted([p for p in Path(BASEDIR).glob("*") if p.suffix in EXTS])
 
 goodfiles, badfiles = [], []
 for imgfile in imgfiles:
-    # img = Image(imgfile)
     img = pyexiv2.Image(imgfile.as_posix())
     alldata = img.read_exif()
     tstamp = datetime.strptime(alldata["Exif.Image.DateTime"], DTFMT)
@@ -52,21 +51,13 @@ for bf in badfiles:
         if dsecs < mindsecs:
             mindsecs = dsecs
             minndx = ndx
-        # print(f"{gf['filepath']=}, {dsecs=}")
 
     print(f"{minndx=}")
 
     if mindsecs < MAXDELTASECS:
         donordata = goodfiles[minndx]
         gpsdata = {k: v for k, v in donordata.items() if "GPS" in k}
-        # recvimg = Image(bf["filepath"])
-        # for k, v in gpsdata.items():
-        #     setattr(recvimg, k, v)
-        p = Path(bf["filepath"])
-        newname = f"{p.stem}_new{p.suffix}"
-        newfile = p.with_name(newname)
-        # with open(newfile, "wb") as fh:
-        #     fh.write(recvimg.get_file())
-
+        img = pyexiv2.Image(bf["filepath"].as_posix())
+        img.modify_exif(gpsdata)
     else:
         print("Too far apart - not changing")
